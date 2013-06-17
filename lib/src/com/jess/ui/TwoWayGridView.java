@@ -43,6 +43,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
@@ -3480,5 +3481,28 @@ public class TwoWayGridView extends TwoWayAbsListView {
 
 	}
 
-}
+	public static interface IInterceptTouchEventListener {
+		boolean onInterceptTouchEvent(MotionEvent ev);
+	}
 
+	private IInterceptTouchEventListener listener;
+
+	public void setInterceptTouchEventListener(
+			IInterceptTouchEventListener listener) {
+		this.listener = listener;
+	}
+
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+
+		if (listener != null) {
+			if (!listener.onInterceptTouchEvent(ev)) {
+				return super.onInterceptTouchEvent(ev);
+			} else {
+				return true;
+			}
+		} else {
+			return super.onInterceptTouchEvent(ev);
+		}
+	}
+}
