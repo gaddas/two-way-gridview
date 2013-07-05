@@ -809,7 +809,7 @@ public class TwoWayGridView extends TwoWayAbsListView {
 	}
 
 	@Override
-	protected int computeHorizontalScrollOffset() {
+	public int computeHorizontalScrollOffset() {
 		if (mFirstPosition >= 0 && getChildCount() > 0 && !mScrollVertically) {
 			final View view = getChildAt(0);
 			final int left = view.getLeft();
